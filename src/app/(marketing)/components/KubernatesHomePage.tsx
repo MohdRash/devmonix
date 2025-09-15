@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'; // Next.js projects typically use framer-motion directly
+import { motion, useReducedMotion } from 'framer-motion';
+import { memo, useMemo } from 'react';
 import {
   Settings,
   Infinity as LucideInfinity,
@@ -7,20 +8,30 @@ import {
   DollarSign,
   Cog
 } from 'lucide-react';
-import EnhancedAnimatedBackground from './EnhancedAnimatedBackground';
-import HexagonCard from './HexagonCard';
-// TODO: Create and import EnhancedCitySkyline component
-import EnhancedCitySkyline from './EnhancedCitySkyline';
+import dynamic from 'next/dynamic';
 
-export default function KubernatesHomePage() {
-  const services = [
+// Dynamic imports for performance
+const EnhancedAnimatedBackground = dynamic(() => import('./EnhancedAnimatedBackground'), {
+  ssr: false
+});
+const HexagonCard = dynamic(() => import('./HexagonCard'), {
+  ssr: false
+});
+const EnhancedCitySkyline = dynamic(() => import('./EnhancedCitySkyline'), {
+  ssr: false
+});
+
+const KubernatesHomePage = memo(() => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const services = useMemo(() => [
     { icon: <Settings className="w-6 h-6" />, title: "Kubernetes Platforms", delay: 0.2 },
     { icon: <LucideInfinity className="w-6 h-6" />, title: "DevOps", delay: 0.4 },
     { icon: <Cog className="w-6 h-6" />, title: "Platform Engineering", delay: 0.6 },
     { icon: <Shield className="w-6 h-6" />, title: "Kubernetes Security", delay: 0.8 },
     { icon: <Search className="w-6 h-6" />, title: "Observability", delay: 1.0 },
     { icon: <DollarSign className="w-6 h-6" />, title: "FinOps", delay: 1.2 },
-  ];
+  ], []);
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-500 via-purple-600 to-purple-800">
@@ -31,22 +42,22 @@ export default function KubernatesHomePage() {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 py-16">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
           className="text-center mb-16 max-w-5xl"
         >
           <motion.h1
             className="text-white mb-6 leading-tight"
             style={{ fontSize: '3.5rem', fontWeight: 300, letterSpacing: '0.02em' }}
-            animate={{
+            animate={shouldReduceMotion ? {} : {
               textShadow: [
                 "0 0 0px rgba(255,255,255,0)",
                 "0 0 30px rgba(255,255,255,0.4)",
                 "0 0 0px rgba(255,255,255,0)"
               ]
             }}
-            transition={{
+            transition={shouldReduceMotion ? {} : {
               duration: 4,
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut"
@@ -58,9 +69,9 @@ export default function KubernatesHomePage() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+            transition={{ delay: shouldReduceMotion ? 0 : 0.5, duration: shouldReduceMotion ? 0 : 0.8 }}
             className="text-white/90"
             style={{ fontSize: '1.125rem', fontWeight: 300, letterSpacing: '0.05em' }}
           >
@@ -70,9 +81,9 @@ export default function KubernatesHomePage() {
 
         {/* Services Grid - Hexagons */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: shouldReduceMotion ? 0 : 0.8 }}
           className="grid grid-cols-3 gap-x-16 gap-y-12 mb-32"
         >
           {services.map((service, index) => (
@@ -93,4 +104,8 @@ export default function KubernatesHomePage() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-purple-900/90 to-transparent pointer-events-none z-30" />
     </div>
   );
-}
+});
+
+KubernatesHomePage.displayName = 'KubernatesHomePage';
+
+export default KubernatesHomePage;

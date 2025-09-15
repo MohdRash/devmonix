@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'; // Changed from 'motion/react' to 'framer-motion' for Next.js compatibility
+import { motion, useReducedMotion } from 'framer-motion';
+import { memo, useMemo } from 'react';
 import {
   Plane,
   Github,
@@ -13,36 +14,46 @@ import {
   Cpu
 } from 'lucide-react';
 
-const TechIcon = ({ icon: Icon, x, y, duration, delay = 0 }: {
+const TechIcon = memo(({ icon: Icon, x, y, duration, delay = 0 }: {
   icon: React.ComponentType<any>,
   x: number,
   y: number,
   duration: number,
   delay?: number
-}) => (
-  <motion.div
-    className="absolute opacity-20"
-    style={{ left: `${x}%`, top: `${y}%` }}
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{
-      opacity: [0, 0.3, 0],
-      scale: [0, 1, 0],
-      y: [0, -20, 0],
-      x: [0, 10, 0],
-      rotate: [0, 15, 0]
-    }}
-    transition={{
-      duration,
-      repeat: Infinity,
-      ease: "easeInOut",
-      delay
-    }}
-  >
-    <Icon className="w-6 h-6 text-white/40" />
-  </motion.div>
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const animate = useMemo(() => shouldReduceMotion ? {
+    opacity: 0.3
+  } : {
+    opacity: [0, 0.3, 0],
+    scale: [0, 1, 0],
+    y: [0, -20, 0],
+    x: [0, 10, 0],
+    rotate: [0, 15, 0]
+  }, [shouldReduceMotion]);
 
-const FlyingObject = ({
+  const transition = useMemo(() => shouldReduceMotion ? {} : {
+    duration,
+    repeat: Infinity,
+    ease: "easeInOut",
+    delay
+  }, [duration, delay, shouldReduceMotion]);
+
+  return (
+    <motion.div
+      className="absolute opacity-20"
+      style={{ left: `${x}%`, top: `${y}%` }}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={animate}
+      transition={transition}
+    >
+      <Icon className="w-6 h-6 text-white/40" />
+    </motion.div>
+  );
+});
+
+const FlyingObject = memo(({
   children,
   startX,
   endX,
@@ -50,7 +61,7 @@ const FlyingObject = ({
   duration,
   delay = 0,
   wobble = false
-}: {
+}) => {
   children: import('react').ReactNode,
   startX: number,
   endX: number,
@@ -58,108 +69,157 @@ const FlyingObject = ({
   duration: number,
   delay?: number,
   wobble?: boolean
-}) => (
-  <motion.div
-    className="absolute"
-    style={{ top: `${y}%` }}
-    initial={{ x: `${startX}%` }}
-    animate={{
-      x: `${endX}%`,
-      ...(wobble && { y: [0, -10, 0, -5, 0] })
-    }}
-    transition={{
-      x: { duration, repeat: Infinity, ease: "linear", delay },
-      y: wobble ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}
-    }}
-  >
-    {children}
-  </motion.div>
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const animate = useMemo(() => shouldReduceMotion ? {
+    x: `${endX}%`
+  } : {
+    x: `${endX}%`,
+    ...(wobble && { y: [0, -10, 0, -5, 0] })
+  }, [endX, wobble, shouldReduceMotion]);
 
-const TwinklingStar = ({ x, y, delay, size = 1 }: {
+  const transition = useMemo(() => shouldReduceMotion ? {} : {
+    x: { duration, repeat: Infinity, ease: "linear", delay },
+    y: wobble ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}
+  }, [duration, delay, wobble, shouldReduceMotion]);
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{ top: `${y}%` }}
+      initial={{ x: `${startX}%` }}
+      animate={animate}
+      transition={transition}
+    >
+      {children}
+    </motion.div>
+  );
+});
+
+const TwinklingStar = memo(({ x, y, delay, size = 1 }: {
   x: number,
   y: number,
   delay: number,
   size?: number
-}) => (
-  <motion.div
-    className="absolute bg-white rounded-full"
-    style={{
-      left: `${x}%`,
-      top: `${y}%`,
-      width: `${size}px`,
-      height: `${size}px`
-    }}
-    animate={{
-      opacity: [0.2, 1, 0.2],
-      scale: [0.5, 1.2, 0.5]
-    }}
-    transition={{
-      duration: Math.random() * 2 + 1,
-      repeat: Infinity,
-      delay,
-      ease: "easeInOut"
-    }}
-  />
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const animate = useMemo(() => shouldReduceMotion ? {
+    opacity: 0.6
+  } : {
+    opacity: [0.2, 1, 0.2],
+    scale: [0.5, 1.2, 0.5]
+  }, [shouldReduceMotion]);
 
-const Bird = ({ startX, endX, y, delay }: {
+  const transition = useMemo(() => shouldReduceMotion ? {} : {
+    duration: Math.random() * 2 + 1,
+    repeat: Infinity,
+    delay,
+    ease: "easeInOut"
+  }, [delay, shouldReduceMotion]);
+
+  return (
+    <motion.div
+      className="absolute bg-white rounded-full"
+      style={{
+        left: `${x}%`,
+        top: `${y}%`,
+        width: `${size}px`,
+        height: `${size}px`
+      }}
+      animate={animate}
+      transition={transition}
+    />
+  );
+});
+
+const Bird = memo(({ startX, endX, y, delay }: {
   startX: number,
   endX: number,
   y: number,
   delay: number
-}) => (
-  <motion.div
-    className="absolute"
-    style={{ top: `${y}%` }}
-    initial={{ x: `${startX}%` }}
-    animate={{
-      x: `${endX}%`,
-      y: [0, -8, 0, -12, 0]
-    }}
-    transition={{
-      x: { duration: 15, repeat: Infinity, ease: "linear", delay },
-      y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-    }}
-  >
-    <motion.div
-      animate={{ rotate: [0, 8, -8, 0] }}
-      transition={{ duration: 1, repeat: Infinity }}
-    >
-      <svg width="16" height="12" viewBox="0 0 16 12" className="fill-white/40">
-        <path d="M8 0c-2 2-4 3-8 3v1c4 0 6-1 8-3 2 2 4 3 8 3V3c-4 0-6-1-8-3z"/>
-      </svg>
-    </motion.div>
-  </motion.div>
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const animate = useMemo(() => shouldReduceMotion ? {
+    x: `${endX}%`
+  } : {
+    x: `${endX}%`,
+    y: [0, -8, 0, -12, 0]
+  }, [endX, shouldReduceMotion]);
 
-const FloatingCloud = ({ x, y, size, duration, delay }: {
+  const transition = useMemo(() => shouldReduceMotion ? {} : {
+    x: { duration: 15, repeat: Infinity, ease: "linear", delay },
+    y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+  }, [delay, shouldReduceMotion]);
+
+  const rotateAnimate = useMemo(() => shouldReduceMotion ? {} : {
+    rotate: [0, 8, -8, 0]
+  }, [shouldReduceMotion]);
+
+  const rotateTransition = useMemo(() => shouldReduceMotion ? {} : {
+    duration: 1, 
+    repeat: Infinity
+  }, [shouldReduceMotion]);
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{ top: `${y}%` }}
+      initial={{ x: `${startX}%` }}
+      animate={animate}
+      transition={transition}
+    >
+      <motion.div
+        animate={rotateAnimate}
+        transition={rotateTransition}
+      >
+        <svg width="16" height="12" viewBox="0 0 16 12" className="fill-white/40">
+          <path d="M8 0c-2 2-4 3-8 3v1c4 0 6-1 8-3 2 2 4 3 8 3V3c-4 0-6-1-8-3z"/>
+        </svg>
+      </motion.div>
+    </motion.div>
+  );
+});
+
+const FloatingCloud = memo(({ x, y, size, duration, delay }: {
   x: number,
   y: number,
   size: number,
   duration: number,
   delay: number
-}) => (
-  <motion.div
-    className="absolute opacity-20"
-    style={{ left: `${x}%`, top: `${y}%` }}
-    animate={{
-      x: [0, 30, 0],
-      y: [0, -15, 0],
-      scale: [1, 1.1, 1]
-    }}
-    transition={{
-      duration,
-      repeat: Infinity,
-      ease: "easeInOut",
-      delay
-    }}
-  >
-    <div className="text-white/20" style={{ fontSize: `${size}rem` }}>☁️</div>
-  </motion.div>
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const animate = useMemo(() => shouldReduceMotion ? {} : {
+    x: [0, 30, 0],
+    y: [0, -15, 0],
+    scale: [1, 1.1, 1]
+  }, [shouldReduceMotion]);
 
-export default function EnhancedAnimatedBackground() {
+  const transition = useMemo(() => shouldReduceMotion ? {} : {
+    duration,
+    repeat: Infinity,
+    ease: "easeInOut",
+    delay
+  }, [duration, delay, shouldReduceMotion]);
+
+  return (
+    <motion.div
+      className="absolute opacity-20"
+      style={{ left: `${x}%`, top: `${y}%` }}
+      animate={animate}
+      transition={transition}
+    >
+      <div className="text-white/20" style={{ fontSize: `${size}rem` }}>☁️</div>
+    </motion.div>
+  );
+});
+
+const EnhancedAnimatedBackground = memo(() => {
+  const shouldReduceMotion = useReducedMotion();
+  
   return (
     <div className="absolute inset-0 overflow-hidden z-0">
       {/* Many more twinkling stars */}
@@ -377,7 +437,7 @@ export default function EnhancedAnimatedBackground() {
       <FloatingCloud x={90} y={18} size={1.5} duration={22} delay={8} />
 
       {/* Floating particles */}
-      {Array.from({ length: 40 }, (_, i) => (
+      {Array.from({ length: shouldReduceMotion ? 10 : 40 }, (_, i) => (
         <motion.div
           key={`particle-${i}`}
           className="absolute w-1 h-1 bg-white/20 rounded-full"
@@ -457,4 +517,8 @@ export default function EnhancedAnimatedBackground() {
 
     </div>
   );
-}
+});
+
+EnhancedAnimatedBackground.displayName = 'EnhancedAnimatedBackground';
+
+export default EnhancedAnimatedBackground;

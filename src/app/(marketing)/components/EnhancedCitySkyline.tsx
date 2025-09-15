@@ -1,8 +1,10 @@
-import { motion } from 'framer-motion'; // Changed from 'motion/react' for Next.js compatibility
-import React, { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useState, memo, useMemo } from 'react';
 
-export default function EnhancedCitySkyline() {
-  const buildings = [
+const EnhancedCitySkyline = memo(() => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const buildings = useMemo(() => [
     { height: 120, width: 25, delay: 0, windows: 8 },
     { height: 180, width: 30, delay: 0.1, windows: 12, antenna: true },
     { height: 90, width: 35, delay: 0.2, windows: 6 },
@@ -28,14 +30,14 @@ export default function EnhancedCitySkyline() {
     { height: 135, width: 29, delay: 2.2, windows: 9 },
     { height: 85, width: 31, delay: 2.3, windows: 6 },
     { height: 155, width: 28, delay: 2.4, windows: 11 },
-  ];
+  ], []);
 
-  const clouds = [
+  const clouds = useMemo(() => [
     { x: 15, y: -10, size: 1.5, delay: 0 },
     { x: 40, y: -15, size: 2, delay: 2 },
     { x: 65, y: -8, size: 1.8, delay: 4 },
     { x: 85, y: -12, size: 1.6, delay: 1 },
-  ];
+  ], []);
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-20">
@@ -49,13 +51,15 @@ export default function EnhancedCitySkyline() {
             bottom: `${200 + cloud.y}px`,
             fontSize: `${cloud.size}rem`
           }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{
+          initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0 }}
+          animate={shouldReduceMotion ? {
+            opacity: 0.25
+          } : {
             opacity: [0, 0.3, 0.2],
             scale: [0, 1, 1.1],
             x: [0, 20, 0]
           }}
-          transition={{
+          transition={shouldReduceMotion ? {} : {
             duration: 20,
             repeat: Infinity,
             delay: cloud.delay,
@@ -70,25 +74,27 @@ export default function EnhancedCitySkyline() {
       <motion.div
         className="absolute left-1/2 transform -translate-x-1/2"
         style={{ bottom: '220px' }}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{
+        initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0 }}
+        animate={shouldReduceMotion ? {
+          opacity: 0.7
+        } : {
           opacity: [0, 0.8, 0.6],
           scale: [0, 1.2, 1],
         }}
-        transition={{
+        transition={shouldReduceMotion ? {} : {
           duration: 3,
           delay: 1
         }}
       >
         <motion.div
-          animate={{
+          animate={shouldReduceMotion ? {} : {
             filter: [
               "drop-shadow(0 0 10px rgba(255,255,255,0.3))",
               "drop-shadow(0 0 20px rgba(255,255,255,0.6))",
               "drop-shadow(0 0 10px rgba(255,255,255,0.3))"
             ]
           }}
-          transition={{
+          transition={shouldReduceMotion ? {} : {
             duration: 4,
             repeat: Infinity,
             ease: "easeInOut"
@@ -100,9 +106,9 @@ export default function EnhancedCitySkyline() {
               fill="rgba(255,255,255,0.4)"
               stroke="rgba(255,255,255,0.6)"
               strokeWidth="1"
-              initial={{ pathLength: 0 }}
+              initial={{ pathLength: shouldReduceMotion ? 1 : 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2, delay: 1.5 }}
+              transition={shouldReduceMotion ? {} : { duration: 2, delay: 1.5 }}
             />
             {/* Grid pattern inside cloud */}
             <defs>
@@ -123,9 +129,9 @@ export default function EnhancedCitySkyline() {
         {buildings.map((building, index) => (
           <motion.div
             key={index}
-            initial={{ height: 0, opacity: 0 }}
+            initial={{ height: shouldReduceMotion ? building.height : 0, opacity: shouldReduceMotion ? 0.7 : 0 }}
             animate={{ height: building.height, opacity: 0.7 }}
-            transition={{
+            transition={shouldReduceMotion ? {} : {
               duration: 1.2,
               delay: building.delay,
               ease: "easeOut"
@@ -142,14 +148,14 @@ export default function EnhancedCitySkyline() {
                 <motion.div
                   key={i}
                   className="bg-yellow-300/70 w-1.5 h-1.5 rounded-sm"
-                  animate={{
-                    opacity: [0.4, 1, 0.4]
-                  }}
-                  transition={{
-                    duration: Math.random() * 4 + 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 3
-                  }}
+                 animate={shouldReduceMotion ? {} : {
+                   opacity: [0.4, 1, 0.4]
+                 }}
+                 transition={shouldReduceMotion ? {} : {
+                   duration: Math.random() * 4 + 2,
+                   repeat: Infinity,
+                   delay: Math.random() * 3
+                 }}
                 />
               ))}
             </div>
@@ -158,17 +164,17 @@ export default function EnhancedCitySkyline() {
             {building.antenna && (
               <motion.div
                 className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-0.5 h-6 bg-white/60"
-                initial={{ height: 0 }}
+                initial={{ height: shouldReduceMotion ? 24 : 0 }}
                 animate={{ height: 24 }}
-                transition={{ delay: building.delay + 1 }}
+                transition={shouldReduceMotion ? {} : { delay: building.delay + 1 }}
               >
                 <motion.div
                   className="absolute -top-1 w-2 h-2 bg-red-400 rounded-full left-1/2 transform -translate-x-1/2"
-                  animate={{
+                  animate={shouldReduceMotion ? {} : {
                     opacity: [0, 1, 0],
                     scale: [0.8, 1.2, 0.8]
                   }}
-                  transition={{
+                  transition={shouldReduceMotion ? {} : {
                     duration: 2,
                     repeat: Infinity,
                     delay: building.delay + 1.5
@@ -187,7 +193,7 @@ export default function EnhancedCitySkyline() {
       <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/20 to-transparent" />
 
       {/* Additional floating elements above city */}
-      {Array.from({ length: 15 }, (_, i) => (
+      {Array.from({ length: shouldReduceMotion ? 5 : 15 }, (_, i) => (
         <motion.div
           key={`city-particle-${i}`}
           className="absolute w-0.5 h-0.5 bg-white/40 rounded-full"
@@ -195,11 +201,11 @@ export default function EnhancedCitySkyline() {
             left: `${Math.random() * 100}%`,
             bottom: `${Math.random() * 100 + 100}px`,
           }}
-          animate={{
+          animate={shouldReduceMotion ? {} : {
             y: [0, -50, 0],
             opacity: [0, 0.8, 0]
           }}
-          transition={{
+          transition={shouldReduceMotion ? {} : {
             duration: Math.random() * 3 + 2,
             repeat: Infinity,
             delay: Math.random() * 2,
@@ -209,4 +215,8 @@ export default function EnhancedCitySkyline() {
       ))}
     </div>
   );
-}
+});
+
+EnhancedCitySkyline.displayName = 'EnhancedCitySkyline';
+
+export default EnhancedCitySkyline;

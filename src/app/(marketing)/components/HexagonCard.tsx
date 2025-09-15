@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'; // Changed from 'motion/react' to 'framer-motion' for Next.js compatibility
+import { motion, useReducedMotion } from 'framer-motion';
+import { memo, useMemo } from 'react';
 
 interface HexagonCardProps {
   icon: React.ReactNode;
@@ -7,15 +8,36 @@ interface HexagonCardProps {
 
 }
 
-export default function HexagonCard({ icon, title, delay }: HexagonCardProps) {
+const HexagonCard = memo(({ icon, title, delay }: HexagonCardProps) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  const initialVariants = useMemo(() => ({
+    opacity: 0,
+    y: shouldReduceMotion ? 0 : 50
+  }), [shouldReduceMotion]);
+
+  const animateVariants = useMemo(() => ({
+    opacity: 1,
+    y: 0
+  }), []);
+
+  const transition = useMemo(() => ({
+    duration: shouldReduceMotion ? 0 : 0.6,
+    delay: shouldReduceMotion ? 0 : delay
+  }), [delay, shouldReduceMotion]);
+
+  const hoverTransition = useMemo(() => ({
+    duration: shouldReduceMotion ? 0 : 0.2
+  }), [shouldReduceMotion]);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
+      initial={initialVariants}
+      animate={animateVariants}
+      transition={transition}
       whileHover={{ 
-        scale: 1.1,
-        transition: { duration: 0.2 }
+        scale: shouldReduceMotion ? 1 : 1.1,
+        transition: hoverTransition
       }}
       className="relative group cursor-pointer flex flex-col items-center"
     >
@@ -78,4 +100,8 @@ export default function HexagonCard({ icon, title, delay }: HexagonCardProps) {
       </motion.div>
     </motion.div>
   );
-}
+});
+
+HexagonCard.displayName = 'HexagonCard';
+
+export default HexagonCard;

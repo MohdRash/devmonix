@@ -1,4 +1,5 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { AnimationContainer, MaxWidthWrapper } from "@/components";
 import { BentoCard, BentoGrid, CARDS } from "@/components/ui/bento-grid";
 import { BorderBeam } from "@/components/ui/border-beam";
@@ -13,7 +14,12 @@ import { ArrowRightIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Particles from "@/components/ui/particles";
-import KubernatesHomePage from './components/KubernatesHomePage';
+
+// Dynamic imports for better performance
+const KubernatesHomePage = dynamic(() => import('./components/KubernatesHomePage'), {
+    ssr: false,
+    loading: () => <div className="h-96 bg-gradient-to-b from-purple-500 via-purple-600 to-purple-800 animate-pulse" />
+});
 
 const HomePage = async () => {
 

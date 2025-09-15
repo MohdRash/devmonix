@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
@@ -10,7 +11,7 @@ import { Input } from "./input";
 import { Integrations } from "./integrations";
 import { Label } from "./label";
 
-export const CARDS = [
+export const CARDS = memo(() => [
     {
         Icon: Link2Icon,
         name: "Shorten links",
@@ -88,9 +89,9 @@ export const CARDS = [
             />
         ),
     },
-];
+]);
 
-const BentoGrid = ({
+const BentoGrid = memo(({
     children,
     className,
 }: {
@@ -107,9 +108,11 @@ const BentoGrid = ({
             {children}
         </div>
     );
-};
+});
 
-const BentoCard = ({
+BentoGrid.displayName = 'BentoGrid';
+
+const BentoCard = memo(({
     name,
     className,
     background,
@@ -155,6 +158,8 @@ const BentoCard = ({
         </div>
         <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
     </div>
-);
+));
+
+BentoCard.displayName = 'BentoCard';
 
 export { BentoCard, BentoGrid };
