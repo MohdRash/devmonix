@@ -59,9 +59,9 @@ const ServicesPage = () => {
               </p>
             </div>
             <div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Cloud Solutions & Consulting</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Cloud Solutions</h2>
               <p className="mt-4 text-muted-foreground md:text-xl">
-                Leverage the power of the cloud with our expert consulting and development services. We help you design, deploy, and manage scalable cloud infrastructures, ensuring optimal performance, security, and cost-efficiency.
+                Leverage the power of the cloud with the latest tools like AWS, AZURE, GCP and DevOps like Docker, Kubernetes, CICD Terraform.  We help you design, deploy, and manage scalable cloud infrastructures, ensuring optimal performance, security, and cost-efficiency 24/7.
               </p>
             </div>
           </div>
@@ -78,9 +78,9 @@ const ServicesPage = () => {
               </p>
             </div>
             <div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Maintenance & Support</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Monitoring 24/7 Support</h2>
               <p className="mt-4 text-muted-foreground md:text-xl">
-                We provide ongoing maintenance and support services to ensure your software remains up-to-date, secure, and performs optimally. Our team is always ready to assist with any issues or enhancements you may need.
+                We provide ongoing monitoring 24/7 support using tools like Grafan Stack, New Relics, Data Dog, Zabbix and other cloud based monitoring to ensure your software remains up-to-date, secure, and performs optimally.
               </p>
             </div>
           </div>

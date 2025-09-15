@@ -54,10 +54,22 @@ const ContactPage = () => {
                     <span className="font-semibold text-foreground">Email:</span> devmonixtechnologies@gmail.com
                   </li>
                   <li>
-                    <span className="font-semibold text-foreground">Phone:</span> +1 (555) 123-4567
+                    <span className="font-semibold text-foreground">Phone:</span> +91 906 140 2804 | +62 217 697 9789
                   </li>
                   <li>
-                    <span className="font-semibold text-foreground">Address:</span> 123 Tech Lane, Innovation City, TX 78701
+                    <span className="font-semibold text-foreground">Head Office:</span> Podgorica, Montenegro
+                  </li>
+                  <li>
+                    <span className="font-semibold text-foreground">Branch Office:</span> Kerala, India
+                  </li>
+                  <li>
+                    <span className="font-semibold text-foreground">Branch Office:</span> Kuala Lumpur, Malaysia
+                  </li>
+                  <li>
+                    <span className="font-semibold text-foreground">Branch Office:</span> Banda Aceh, Indonesia
+                  </li>
+                  <li>
+                    <span className="font-semibold text-foreground">Branch Office:</span> Dubai, UAE
                   </li>
                 </ul>
               </div>

@@ -94,6 +94,40 @@ const PortfolioPage = () => {
             </div>
           </div>
         </section>
+
+        <section className="py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Project Omega: E-Commerce Platform</h2>
+
+                <p className="mt-4 text-muted-foreground md:text-xl">
+                  Implemented an The E-Commerce Analytics Platform is designed to provide real-time insights into customer behavior, sales trends, and inventory management for an online retail business. This project leverages the strengths of Amazon Web Services AWS, Microsoft Azure, and Google Cloud Platform GCP to create a robust, scalable, and efficient solution.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Project Tetra: DevOps Automation Pipeline</h2>
+                <p className="mt-4 text-muted-foreground md:text-xl">
+                  Developed The DevOps Automation Pipeline project aims to streamline the development, testing, and deployment processes for a web application. By implementing a continuous integration and continuous deployment CI/CD pipeline, the project enhances collaboration between development and operations teams, reduces deployment times, and improves software quality.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Project FishEye: 24/7 Monitoring System </h2>
+
+                <p className="mt-4 text-muted-foreground md:text-xl">
+                  The 24/7 Monitoring System project is designed to ensure the continuous availability and performance of a cloud-based infrastructure for a financial services application. This project implements a comprehensive monitoring solution that tracks system health, application performance, and security events, enabling proactive incident management and rapid response to issues.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </MaxWidthWrapper>
     </div>
   );

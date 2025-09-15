@@ -1,4 +1,5 @@
 import { BarChart3Icon, FolderOpenIcon, WandSparklesIcon } from "lucide-react";
+import Image from "next/image";
 
 export const DEFAULT_AVATAR_URL = "https://api.dicebear.com/8.x/initials/svg?backgroundType=gradientLinear&backgroundRotation=0,360&seed=";
 
@@ -7,27 +8,69 @@ export const PAGINATION_LIMIT = 10;
 export const COMPANIES = [
     {
         name: "Tech Solutions Inc.",
-        logo: "/assets/company-01.svg",
+        logo: (
+            <Image
+                src="/assets/company-01.svg"
+                alt="Tech Solutions Inc. Logo"
+                width={40}
+                height={40}
+            />
+        ),
     },
     {
         name: "Global Innovations",
-        logo: "/assets/company-02.svg",
+        logo: (
+            <Image
+                src="/assets/company-02.svg"
+                alt="Global Innovations Logo"
+                width={40}
+                height={40}
+            />
+        ),
     },
     {
         name: "Future Systems Co.",
-        logo: "/assets/company-03.svg",
+        logo: (
+            <Image
+                src="/assets/company-03.svg"
+                alt="Future Systems Co. Logo"
+                width={40}
+                height={40}
+            />
+        ),
     },
     {
         name: "Digital Dynamics",
-        logo: "/assets/company-04.svg",
+        logo: (
+            <Image
+                src="/assets/company-04.svg"
+                alt="Digital Dynamics Logo"
+                width={40}
+                height={40}
+            />
+        ),
     },
     {
         name: "Apex Software",
-        logo: "/assets/company-05.svg",
+        logo: (
+            <Image
+                src="/assets/company-05.svg"
+                alt="Apex Software Logo"
+                width={40}
+                height={40}
+            />
+        ),
     },
     {
         name: "Innovate Corp.",
-        logo: "/assets/company-06.svg",
+        logo: (
+            <Image
+                src="/assets/company-06.svg"
+                alt="Innovate Corp. Logo"
+                width={40}
+                height={40}
+            />
+        ),
     }
 ] as const;
 

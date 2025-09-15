@@ -13,10 +13,6 @@ export const NAV_LINKS = [
         title: "Portfolio",
         href: "/portfolio",
     },
-    {
-        title: "Our Works",
-        href: "/our-works",
-    },
 
     {
         title: "About Us",

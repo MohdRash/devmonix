@@ -88,14 +88,11 @@ const Footer = () => {
                                         <Link href="https://instagram.com" target='_blank' className="hover:text-foreground transition-all duration-300">
                                             <Image style={{opacity: 0.8, height:40}} src="/icons/social/instagram_icon.svg" alt="devmonix instagram" width={100} height={25} />
                                         </Link>
-                                        <Link href="https://github.com" target='_blank' className="hover:text-foreground transition-all duration-300">
-                                            <Image style={{opacity: 0.8, height:40}} src="/icons/social/github_icon.svg" alt="devmonix instagram" width={100} height={25} />
-                                        </Link>
                                         <Link href="https://linkedin.com" target='_blank' className="hover:text-foreground transition-all duration-300">
                                             <Image style={{opacity: 0.8, height:40}} src="/icons/social/linkedin_icon.svg" alt="devmonix instagram" width={100} height={25} />
                                         </Link>
                                         <Link href="mailto:devmonixtechnologies@gmail.com" target='_blank' className="hover:text-foreground transition-all duration-300">
-                                            <Image style={{opacity: 0.8, height:40}} src="/icons/social/gmail_icon.svg" alt="devmonix instagram" width={100} height={25} />
+                                            <Image style={{opacity: 0.8, height:50}} src="/icons/social/gmail_icon.svg" alt="devmonix instagram" width={100} height={25} />
                                         </Link>
                                     </li>
                                 </ul>

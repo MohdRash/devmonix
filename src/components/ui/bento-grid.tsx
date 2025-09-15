@@ -52,12 +52,12 @@ export const CARDS = [
             <Command className="absolute right-10 top-10 w-[70%] origin-to translate-x-0 border border-border transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] group-hover:-translate-x-10 p-2">
                 <Input placeholder="Type to search..." />
                 <div className="mt-1 cursor-pointer">
-                    <div className="px-4 py-2 hover:bg-muted rounded-md">linkify.io/hdf00c</div>
-                    <div className="px-4 py-2 hover:bg-muted rounded-md">linkify.io/sdv0n0</div>
-                    <div className="px-4 py-2 hover:bg-muted rounded-md">linkify.io/03gndo</div>
-                    <div className="px-4 py-2 hover:bg-muted rounded-md">linkify.io/09vmmw</div>
-                    <div className="px-4 py-2 hover:bg-muted rounded-md">linkify.io/s09vws</div>
-                    <div className="px-4 py-2 hover:bg-muted rounded-md">linkify.io/sd8fv5</div>
+                    <div className="px-4 py-2 hover:bg-muted rounded-md">devmonix.io/services</div>
+                    <div className="px-4 py-2 hover:bg-muted rounded-md">localhost:3000/home</div>
+                    <div className="px-4 py-2 hover:bg-muted rounded-md">localhost:5712/contact</div>
+                    <div className="px-4 py-2 hover:bg-muted rounded-md">ayusports.com/aboutus</div>
+                    <div className="px-4 py-2 hover:bg-muted rounded-md">duck.ai/usr566876t</div>
+                    <div className="px-4 py-2 hover:bg-muted rounded-md">duck.ai/usr566876t</div>
                 </div>
             </Command>
         ),

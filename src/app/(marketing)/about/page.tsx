@@ -79,24 +79,25 @@ const AboutUsPage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                   <div className="flex flex-col items-center text-center">
                     <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl font-bold">
-                      JD
+                      AL
                     </div>
-                    <h3 className="mt-4 text-xl font-semibold">John Doe</h3>
-                    <p className="text-muted-foreground">CEO</p>
+                    <h3 className="mt-4 text-xl font-semibold">Abdul Latheef</h3>
+                    <p className="text-muted-foreground">CEO | Co-founder</p>
                   </div>
                   <div className="flex flex-col items-center text-center">
                     <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl font-bold">
-                      JS
+                      SP
                     </div>
-                    <h3 className="mt-4 text-xl font-semibold">Jane Smith</h3>
-                    <p className="text-muted-foreground">Lead Developer</p>
+                    <h3 className="mt-4 text-xl font-semibold">Mohd. Shalih</h3>
+                    <p className="text-muted-foreground">CMO | Co-founder</p>
                   </div>
                   <div className="flex flex-col items-center text-center">
                     <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl font-bold">
-                      AM
+                      MR
                     </div>
-                    <h3 className="mt-4 text-xl font-semibold">Alex Miller</h3>
-                    <p className="text-muted-foreground">UI/UX Designer</p>
+                    <h3 className="mt-4 text-xl font-semibold">Mohd. Rasheek</h3>
+                    <p className="text-muted-foreground">CTO | Co-founder</p>
+
                   </div>
                 </div>
               </div>
